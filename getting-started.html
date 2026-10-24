@@ -1,0 +1,7 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Getting started · QORE</title><link rel="stylesheet" href="site.css"></head><body><nav><a href="index.html">QORE Docs</a><a href="getting-started.html">Getting started</a><a href="architecture.html">Architecture</a><a href="simulation.html">Simulation</a><a href="security.html">Security</a></nav><main><small>START HERE</small><h1>Getting started with QORE</h1><p>QORE is a local-first quantum workbench for authoring circuits, running controlled Aer simulations, understanding state output, proving transformations, and preserving experiment evidence.</p><h2>Run QORE</h2><pre>.\.venv\Scripts\python.exe -m uvicorn qore.main:app --host 127.0.0.1 --port 8000</pre><p>Open http://127.0.0.1:8000. Create a project in Explorer, write a supported Qiskit circuit, and run it from Quantum Lab.</p><h2>First Bell-state experiment</h2><pre>from qiskit import QuantumCircuit
+
+qc = QuantumCircuit(2, 2)
+qc.h(0)
+qc.cx(0, 1)
+qc.measure([0, 1], [0, 1])</pre><p>With an ideal simulator this produces correlated 00 and 11 results.</p></main></body></html>
