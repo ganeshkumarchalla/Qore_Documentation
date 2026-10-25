@@ -1,0 +1,103 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101821"><title>Automated quality reviews · QORE Documentation</title><meta name="description" content="QORE has an active Codex daily review coordinator scheduled for 09:00 in Asia/Kolkata. Scheduling is managed by the Codex heartbeat attached to the project conversation; this repos"><link rel="canonical" href="https://qoredocs.vercel.app/automated-reviews.html"><link rel="icon" href="assets/qore.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><button class="icon-button" type="button" data-nav-toggle aria-label="Toggle documentation navigation" aria-controls="docs-sidebar" aria-expanded="true">☰</button><a class="brand" href="index.html"><img src="assets/qore.svg" alt="" width="29" height="29">QORE <small>DOCS</small></a><div class="search"><label for="docs-search" hidden>Search documentation</label><input id="docs-search" type="search" placeholder="Search the docs · Ctrl K" autocomplete="off"><div class="search-results" role="status"></div></div><a class="header-link" href="https://qore-bmh1.onrender.com/" rel="noopener">Open Studio ↗</a></header><button class="docs-menu-backdrop" type="button" aria-label="Close documentation navigation"></button><div class="shell"><nav class="sidebar" id="docs-sidebar" aria-label="Documentation topics"><p class="sidebar-title">QORE DOCUMENTATION</p><a href="index.html">Overview</a><details open><summary>Start here</summary><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries</a><a href="guides-first-experiment.html">Your first three-qubit experiment</a><a href="guides-getting-started.html">Getting started with QORE</a><a href="guides-learning-path.html">A learning path through quantum experiments</a><a href="guides-local-development.html">Local development</a><a href="guides-troubleshooting.html">Troubleshooting QORE</a><a href="guides-workspace-files.html">Files, folders, saving, and recovery</a></details><details open><summary>Workspace features</summary><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE</a><a href="features-forge.html">Forge: compiler candidates and verification</a><a href="features-quantum-lab.html">Quantum Lab: simulation and evidence</a><a href="features-research-ledger.html">Research Ledger: immutable experiment evidence</a><a href="features-state-world.html">State World and visual state inspection</a><a href="features-studio.html">Studio: editing and workspace organization</a><a href="features-terminal.html">Terminal, Output, Problems, and Debug</a></details><details open><summary>Technical reference</summary><a href="reference-api.html">HTTP API reference</a><a href="reference-architecture.html">Architecture and trust boundaries</a><a href="reference-circuit-python.html">Supported circuit language</a><a href="reference-limits.html">Runtime limits and compatibility</a><a href="reference-workspace-api.html">Workspace API and recovery model</a></details><details open><summary>Operate QORE</summary><a href="operations-backup-recovery.html">Backup and recovery</a><a href="operations-deployment.html">Deployment guide</a><a href="operations-scalability.html">Scalability and capacity</a><a href="operations-security.html">Security operations</a><a href="operations-testing.html">Verification and testing</a></details><details open><summary>Quantum computing</summary><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states</a><a href="quantum-equivalence.html">Circuit equivalence</a><a href="quantum-foundations.html">Quantum computing foundations</a><a href="quantum-measurement.html">Measurement and bit ordering</a><a href="quantum-qaoa.html">QAOA and graph-cut experiments</a><a href="quantum-reproducibility.html">Reproducibility and evidence</a></details><details open><summary>Project reference</summary><a href="acceptance.html">Phase 1 acceptance coverage</a><a href="automated-reviews.html" class="active" aria-current="page">Automated quality reviews</a><a href="product-spec.html">QORE — PHASE 1 MVP</a><a href="production.html">Production operations</a><a href="quantum.html">QORE-IR and Supported Quantum Subset</a><a href="readme.html">QORE documentation</a><a href="security.html">Local execution guarantees and limitations</a></details></nav><div class="main-shell"><main class="article" id="main"><span class="breadcrumb">Project reference</span><h1>Automated quality reviews</h1><p class="lead">QORE has an active Codex daily review coordinator scheduled for 09:00 in Asia/Kolkata. Scheduling is managed by the Codex heartbeat attached to the project conversation; this repos</p><div class="concept"><small>CONCEPT AT A GLANCE</small><div class="concept-track"><span class="concept-step" style="--i:0">Write</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:1">Save</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:2">Explore</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:3">Verify</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:4">Keep evidence</span></div><p>Conceptual workflow. Numerical evidence and save status come from your actual QORE session.</p></div><p>QORE has an active Codex daily review coordinator scheduled for <strong>09:00 in Asia/Kolkata</strong>. Scheduling is managed by the Codex heartbeat attached to the project conversation; this repository does not install an operating-system task or a server cron job.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dedicated review agent</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Studio and Explorer</td>
+<td>Editing, database autosave, refresh/offline recovery, folder operations, 48-hour Trash and Undo, layout and accessibility</td>
+</tr>
+<tr>
+<td>Quantum Lab and Qiskit</td>
+<td>Analytic reference circuits, probabilities, noise, Bloch purity, matrices, supported syntax and bounds</td>
+</tr>
+<tr>
+<td>Forge</td>
+<td>Compiler candidates, operator equivalence, source hashes, measurement mapping and approval</td>
+</tr>
+<tr>
+<td>Identity and Ledger</td>
+<td>Email confirmation and availability, verified sessions, account separation, RLS and immutable restoration</td>
+</tr>
+<tr>
+<td>AI Assistant</td>
+<td>Secondary sidebar, grounded circuit/results context, stale-response prevention and safe failures</td>
+</tr>
+<tr>
+<td>Security and Secrets</td>
+<td>Source/configuration scanning, credentials, Docker boundaries, dependency advisories and IDE safety</td>
+</tr>
+<tr>
+<td>Organization and Scalability</td>
+<td>Module boundaries, types, containers, persistence, worker budgets, concurrency and performance</td>
+</tr>
+<tr>
+<td>SEO and Google Discoverability</td>
+<td>Public metadata, crawlability, sitemap, canonical URLs, accessibility and indexing boundaries</td>
+</tr>
+</tbody>
+</table></div>
+<p>The coordinator dispatches these scopes in batches within the available agent limit, then consolidates actionable findings into a daily report. If delegation is unavailable, it completes the scopes sequentially. It prepares safe fixes in an isolated branch/worktree and does not automatically push, merge, deploy, rotate credentials, or modify live user data.</p>
+<p>The coordinator uses the repeatable local baseline below, reviews its evidence, and directs focused investigation where a check fails or a meaningful improvement is identified. The specialist review complements the executable checks; a successful build alone does not establish security, accessibility, scalability, or quantum correctness.</p>
+<h2 id="run-the-same-baseline-manually">Run the same baseline manually</h2>
+<p>From the repository root, with project dependencies installed:</p>
+<pre><code class="language-powershell">&amp; &quot;.\.venv\Scripts\python.exe&quot; scripts/daily_quality_report.py
+</code></pre>
+<p>The script performs four sequential stages:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Checks</th>
+<th style="text-align:right">Timeout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Security and secret exposure</td>
+<td>Source/configuration credentials, Dockerfiles, environment variants, Git exposure, ignore rules, IDE settings, configuration heuristics</td>
+<td style="text-align:right">120 seconds</td>
+</tr>
+<tr>
+<td>Frontend health</td>
+<td>TypeScript, production build, frontend secret isolation, structural checks and API contract heuristics</td>
+<td style="text-align:right">180 seconds</td>
+</tr>
+<tr>
+<td>Backend regression suite</td>
+<td>All tests in <code>backend/tests</code>, including anonymous browser isolation and workspace boundaries</td>
+<td style="text-align:right">600 seconds</td>
+</tr>
+<tr>
+<td>Quantum and ledger acceptance</td>
+<td>Real API/worker/Aer execution, reference comparisons, noise, matrices, Forge equivalence and immutable evidence restoration</td>
+<td style="text-align:right">180 seconds</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every stage runs even if an earlier stage fails, so the resulting report identifies independent problems. The script exits with a nonzero status if a stage fails, times out, or does not produce a fresh valid report. Timed-out process trees are terminated.</p>
+<h2 id="evidence">Evidence</h2>
+<p>Reports are written to the ignored local <code>evidence/</code> directory:</p>
+<ul>
+<li><code>daily_quality_report.json</code> and <code>.md</code>: stage outcomes, timings, numeric summaries and individual report locations.</li>
+<li><code>security_report.json</code> and <code>.md</code>: findings with fully masked credentials.</li>
+<li><code>frontend_health_report.json</code> and <code>.md</code>: frontend checks and diagnostics.</li>
+<li><code>production_acceptance.json</code> and <code>.md</code>: quantitative quantum and ledger results.</li>
+</ul>
+<p>The daily aggregator captures child output in memory and retains only numeric summaries. It does not copy arbitrary compiler, provider, or test output into its logs. Provider credential variables are removed from child environments. Acceptance uses temporary SQLite storage and explicitly prevents loading the user's <code>.env</code>; it never operates on live user projects or accounts.</p>
+<p>The baseline does not push commits, deploy releases, install dependencies, or change external services. The schedule and specialist responsibilities can be updated through the project conversation.</p>
+<h2 id="repository-quality-gate">Repository quality gate</h2>
+<p><code>.github/workflows/quality.yml</code> runs the same baseline on pushes to <code>editing</code>, <code>main</code>, and <code>production</code>, and on pull requests targeting release branches. It also has a daily 09:00 India schedule and a manual trigger. The daily GitHub schedule becomes active when the workflow is present on the repository's default branch. This complements the Codex specialist review and can run without the desktop app being open.</p>
+<p>The workflow has read-only repository permissions, pinned action revisions, a frontend lockfile, an isolated Python environment, bounded execution, and a numeric job summary. It receives no provider credentials and does not deploy, merge, or publish user data. Use its checks when reviewing the editing branch before release promotion.</p>
+<h2 id="secret-scanning-boundaries">Secret-scanning boundaries</h2>
+<p>The scanner checks source files, extensionless Dockerfiles/Containerfiles, <code>.env.example</code>, and <code>.env.*</code> variants. It recognizes modern secret key formats and legacy JWTs whose decoded payload explicitly grants the <code>service_role</code> role. Tokens are never printed, including partial prefixes or suffixes. A public <code>anon</code> JWT is not treated as a privileged credential merely because it is a JWT.</p>
+<p>An ignored server <code>.env</code> is left unread. Frontend environment files remain in scope, and Git's index is checked by filename to identify tracked sensitive paths even when ignore rules exist. Generated dependency, build, browser-profile, capture, and media directories are pruned. An unreadable source/configuration file produces a finding rather than a successful secret-scan result.</p>
+<p>These are detection heuristics, not a guarantee that every possible credential format or vulnerability will be found. Windows file ACLs require a separate host permission inspection; the scanner does not claim to verify them.</p>
+<h2 id="quantum-verification-scope">Quantum verification scope</h2>
+<p>Acceptance covers three-qubit GHZ preparation, a two-qubit marked-state Grover example, coherent deferred-measurement teleportation, the original four-qubit <code>openqasm/qaoa_cut.qasm</code> regression sequence, noisy outcomes versus an ideal reference, displayed unitary orthonormality, Forge operator equivalence, invalid input rejection, and immutable ledger restoration after restart.</p>
+<p>All quantum execution is local simulation. The configured source, qubit, operation, shot, timeout, and operator-validation limits apply. These checks do not assert support for arbitrary Python, every Qiskit API, hardware execution, or a proven optimization advantage. The historical QAOA sequence is a test fixture, not an automatically created user file.</p>
+<div class="next-pages"><a href="acceptance.html">← Phase 1 acceptance coverage</a><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE →</a></div><p class="footer-note">QORE reference · Bounded simulation, inspectable evidence, account-free browser workspace.</p></main><aside class="toc" aria-label="On this page"><h2>ON THIS PAGE</h2><a href="#run-the-same-baseline-manually">Run the same baseline manually</a><a href="#evidence">Evidence</a><a href="#repository-quality-gate">Repository quality gate</a><a href="#secret-scanning-boundaries">Secret-scanning boundaries</a><a href="#quantum-verification-scope">Quantum verification scope</a></aside></div></div></body></html>

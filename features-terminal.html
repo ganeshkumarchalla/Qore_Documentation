@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101821"><title>Terminal, Output, Problems, and Debug · QORE Documentation</title><meta name="description" content="QORE&#x27;s lower console provides typed commands for the active circuit and attached results. Its glass surface and command history resemble a development console, but the supported in"><link rel="canonical" href="https://qoredocs.vercel.app/features-terminal.html"><link rel="icon" href="assets/qore.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><button class="icon-button" type="button" data-nav-toggle aria-label="Toggle documentation navigation" aria-controls="docs-sidebar" aria-expanded="true">☰</button><a class="brand" href="index.html"><img src="assets/qore.svg" alt="" width="29" height="29">QORE <small>DOCS</small></a><div class="search"><label for="docs-search" hidden>Search documentation</label><input id="docs-search" type="search" placeholder="Search the docs · Ctrl K" autocomplete="off"><div class="search-results" role="status"></div></div><a class="header-link" href="https://qore-bmh1.onrender.com/" rel="noopener">Open Studio ↗</a></header><button class="docs-menu-backdrop" type="button" aria-label="Close documentation navigation"></button><div class="shell"><nav class="sidebar" id="docs-sidebar" aria-label="Documentation topics"><p class="sidebar-title">QORE DOCUMENTATION</p><a href="index.html">Overview</a><details open><summary>Start here</summary><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries</a><a href="guides-first-experiment.html">Your first three-qubit experiment</a><a href="guides-getting-started.html">Getting started with QORE</a><a href="guides-learning-path.html">A learning path through quantum experiments</a><a href="guides-local-development.html">Local development</a><a href="guides-troubleshooting.html">Troubleshooting QORE</a><a href="guides-workspace-files.html">Files, folders, saving, and recovery</a></details><details open><summary>Workspace features</summary><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE</a><a href="features-forge.html">Forge: compiler candidates and verification</a><a href="features-quantum-lab.html">Quantum Lab: simulation and evidence</a><a href="features-research-ledger.html">Research Ledger: immutable experiment evidence</a><a href="features-state-world.html">State World and visual state inspection</a><a href="features-studio.html">Studio: editing and workspace organization</a><a href="features-terminal.html" class="active" aria-current="page">Terminal, Output, Problems, and Debug</a></details><details open><summary>Technical reference</summary><a href="reference-api.html">HTTP API reference</a><a href="reference-architecture.html">Architecture and trust boundaries</a><a href="reference-circuit-python.html">Supported circuit language</a><a href="reference-limits.html">Runtime limits and compatibility</a><a href="reference-workspace-api.html">Workspace API and recovery model</a></details><details open><summary>Operate QORE</summary><a href="operations-backup-recovery.html">Backup and recovery</a><a href="operations-deployment.html">Deployment guide</a><a href="operations-scalability.html">Scalability and capacity</a><a href="operations-security.html">Security operations</a><a href="operations-testing.html">Verification and testing</a></details><details open><summary>Quantum computing</summary><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states</a><a href="quantum-equivalence.html">Circuit equivalence</a><a href="quantum-foundations.html">Quantum computing foundations</a><a href="quantum-measurement.html">Measurement and bit ordering</a><a href="quantum-qaoa.html">QAOA and graph-cut experiments</a><a href="quantum-reproducibility.html">Reproducibility and evidence</a></details><details open><summary>Project reference</summary><a href="acceptance.html">Phase 1 acceptance coverage</a><a href="automated-reviews.html">Automated quality reviews</a><a href="product-spec.html">QORE — PHASE 1 MVP</a><a href="production.html">Production operations</a><a href="quantum.html">QORE-IR and Supported Quantum Subset</a><a href="readme.html">QORE documentation</a><a href="security.html">Local execution guarantees and limitations</a></details></nav><div class="main-shell"><main class="article" id="main"><span class="breadcrumb">Workspace features</span><h1>Terminal, Output, Problems, and Debug</h1><p class="lead">QORE&#x27;s lower console provides typed commands for the active circuit and attached results. Its glass surface and command history resemble a development console, but the supported in</p><div class="concept"><small>CONCEPT AT A GLANCE</small><div class="concept-track"><span class="concept-step" style="--i:0">Write</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:1">Save</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:2">Explore</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:3">Verify</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:4">Keep evidence</span></div><p>Conceptual workflow. Numerical evidence and save status come from your actual QORE session.</p></div><p>QORE's lower console provides typed commands for the active circuit and attached results. Its glass surface and command history resemble a development console, but the supported interface is deliberately bounded. Commands call QORE actions or display actual application data. They do not provide a general operating-system shell inside the server container.</p>
+<h2 id="understand-the-four-surfaces">Understand the four surfaces</h2>
+<p>Terminal accepts a command and records its response. Output summarizes attached simulation or optimization evidence as structured text. Problems lists backend errors and parser warnings with a file and source location where available. Debug exposes current nonsecret application context such as active path, health, limits, versions, source hash, and run identifiers.</p>
+<p>These views share a source context. If you edit a file, previous live results clear. A console command requesting counts before a run should explain that no result is attached, not print canned sample counts. A successful-looking prompt does not imply that arbitrary commands were executed.</p>
+<h2 id="run-and-compile-commands">Run and compile commands</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>help</code></td>
+<td>Show the current supported command help</td>
+</tr>
+<tr>
+<td><code>run</code>, <code>simulate</code>, <code>qiskit run</code></td>
+<td>Simulate active source using workspace settings</td>
+</tr>
+<tr>
+<td><code>transpile</code>, <code>opt</code>, <code>optimize</code>, <code>qiskit transpile</code></td>
+<td>Request a Forge candidate using selected settings</td>
+</tr>
+<tr>
+<td><code>qiskit --version</code></td>
+<td>Show server-reported dependency versions</td>
+</tr>
+<tr>
+<td><code>qiskit backends</code></td>
+<td>Show last backend and reported engine limits</td>
+</tr>
+</tbody>
+</table></div>
+<p>Commands use the active source and settings; they do not accept an alternate script path or arbitrary simulator flags. Set shots, seed, noise, and optimization level through the supported workspace controls. Running again while an operation is busy should report that state instead of silently creating unrestricted parallel jobs.</p>
+<p>The <code>qiskit</code> prefix identifies QORE shortcuts. It does not launch an installed Qiskit command-line executable. The reported versions come from the server's health information, and the backend description comes from actual attached evidence.</p>
+<h2 id="inspect-real-circuit-evidence">Inspect real circuit evidence</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Data shown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>qiskit draw</code></td>
+<td>Parsed circuit operations</td>
+</tr>
+<tr>
+<td><code>metrics</code>, <code>qiskit metrics</code></td>
+<td>Current circuit metrics</td>
+</tr>
+<tr>
+<td><code>statevector</code>, <code>qiskit statevector</code></td>
+<td>Available ideal complex amplitudes</td>
+</tr>
+<tr>
+<td><code>unitary</code>, <code>qiskit unitary</code></td>
+<td>Available circuit operator</td>
+</tr>
+<tr>
+<td><code>probs</code></td>
+<td>Sampled probabilities</td>
+</tr>
+<tr>
+<td><code>counts</code></td>
+<td>Actual shot counts</td>
+</tr>
+<tr>
+<td><code>ast</code></td>
+<td>Parsed QORE-IR, not a Python AST dump</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>Current health and engine limits</td>
+</tr>
+</tbody>
+</table></div>
+<p>Statevector and unitary output obey their display limits. A missing matrix above four qubits is expected. <code>ast</code> is retained as a familiar shortcut, but the displayed object is the circuit intermediate representation used by the application. Read <a href="reference-architecture.html">QORE architecture</a> for that representation's role.</p>
+<h2 id="work-with-the-active-buffer">Work with the active buffer</h2>
+<p><code>ls</code> and <code>pwd</code> identify the active file/path context. <code>cat</code> displays the active source; an optional argument must refer to that active buffer. The console is not an unrestricted directory browser and does not expose other container files. Use Explorer to select another workspace file before inspecting it here.</p>
+<p><code>date</code>, <code>echo</code>, and <code>clear</code> are console utilities. Command history is bounded. Use the help output as the authority for accepted syntax. Extra arguments to actions that take none should produce a clear warning rather than being interpreted as shell flags.</p>
+<p>Commands such as package installation, file deletion through a host shell, remote SSH, hardware submission, or an unrelated cloud CLI are not executed. Unsupported commands should say so. This boundary protects both users and the shared service from a misleading terminal that pretends to have capabilities it lacks.</p>
+<h2 id="error-locations-and-source-truth">Error locations and source truth</h2>
+<p>The parser can report a line and column for supported syntax failures. Problems associates the report with the active file and lets the user navigate to the relevant source region. Some backend failures have no precise source location, in which case a default location is only a navigation aid, not a diagnosis of that exact character.</p>
+<p>Console output redacts common credential patterns and keeps bounded logs. Do not deliberately paste secrets into <code>echo</code> or source to test redaction: detection patterns cannot guarantee that every possible secret format is recognized. Use synthetic test values in isolated tests.</p>
+<p>Output distinguishes simulation metadata from optimization metadata. A failed run is an error, not a zero-probability distribution. A compiler warning does not prove the candidate wrong, and a successful compilation does not prove it equivalent. Read the status and structured evidence together.</p>
+<h2 id="a-practical-debugging-sequence">A practical debugging sequence</h2>
+<p>Run <code>status</code> to inspect health and limits. Use <code>pwd</code> to confirm the active path and <code>cat</code> to verify the intended source. Parse or run the circuit. Read Problems for a structured failure, or <code>metrics</code> and <code>counts</code> for successful evidence. Inspect <code>statevector</code> and <code>unitary</code> only when the size and question make them relevant.</p>
+<p>When reporting a bug, include sanitized command, error code, package versions, and minimal nonprivate source. Avoid complete raw logs that may contain user code. A screenshot of a prompt is weaker evidence than the actual structured output and source identity. Use <a href="guides-troubleshooting.html">troubleshooting</a> to distinguish a console misunderstanding from a runtime or persistence failure.</p>
+<div class="next-pages"><a href="features-studio.html">← Studio: editing and workspace organization</a><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries →</a></div><p class="footer-note">QORE reference · Bounded simulation, inspectable evidence, account-free browser workspace.</p></main><aside class="toc" aria-label="On this page"><h2>ON THIS PAGE</h2><a href="#understand-the-four-surfaces">Understand the four surfaces</a><a href="#run-and-compile-commands">Run and compile commands</a><a href="#inspect-real-circuit-evidence">Inspect real circuit evidence</a><a href="#work-with-the-active-buffer">Work with the active buffer</a><a href="#error-locations-and-source-truth">Error locations and source truth</a><a href="#a-practical-debugging-sequence">A practical debugging sequence</a></aside></div></div></body></html>

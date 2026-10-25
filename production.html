@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101821"><title>Production operations · QORE Documentation</title><meta name="description" content="QORE serves the React workbench and FastAPI API from one origin. This release intentionally has no account, login, OAuth, or email-confirmation flow. Editable Explorer source is re"><link rel="canonical" href="https://qoredocs.vercel.app/production.html"><link rel="icon" href="assets/qore.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><button class="icon-button" type="button" data-nav-toggle aria-label="Toggle documentation navigation" aria-controls="docs-sidebar" aria-expanded="true">☰</button><a class="brand" href="index.html"><img src="assets/qore.svg" alt="" width="29" height="29">QORE <small>DOCS</small></a><div class="search"><label for="docs-search" hidden>Search documentation</label><input id="docs-search" type="search" placeholder="Search the docs · Ctrl K" autocomplete="off"><div class="search-results" role="status"></div></div><a class="header-link" href="https://qore-bmh1.onrender.com/" rel="noopener">Open Studio ↗</a></header><button class="docs-menu-backdrop" type="button" aria-label="Close documentation navigation"></button><div class="shell"><nav class="sidebar" id="docs-sidebar" aria-label="Documentation topics"><p class="sidebar-title">QORE DOCUMENTATION</p><a href="index.html">Overview</a><details open><summary>Start here</summary><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries</a><a href="guides-first-experiment.html">Your first three-qubit experiment</a><a href="guides-getting-started.html">Getting started with QORE</a><a href="guides-learning-path.html">A learning path through quantum experiments</a><a href="guides-local-development.html">Local development</a><a href="guides-troubleshooting.html">Troubleshooting QORE</a><a href="guides-workspace-files.html">Files, folders, saving, and recovery</a></details><details open><summary>Workspace features</summary><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE</a><a href="features-forge.html">Forge: compiler candidates and verification</a><a href="features-quantum-lab.html">Quantum Lab: simulation and evidence</a><a href="features-research-ledger.html">Research Ledger: immutable experiment evidence</a><a href="features-state-world.html">State World and visual state inspection</a><a href="features-studio.html">Studio: editing and workspace organization</a><a href="features-terminal.html">Terminal, Output, Problems, and Debug</a></details><details open><summary>Technical reference</summary><a href="reference-api.html">HTTP API reference</a><a href="reference-architecture.html">Architecture and trust boundaries</a><a href="reference-circuit-python.html">Supported circuit language</a><a href="reference-limits.html">Runtime limits and compatibility</a><a href="reference-workspace-api.html">Workspace API and recovery model</a></details><details open><summary>Operate QORE</summary><a href="operations-backup-recovery.html">Backup and recovery</a><a href="operations-deployment.html">Deployment guide</a><a href="operations-scalability.html">Scalability and capacity</a><a href="operations-security.html">Security operations</a><a href="operations-testing.html">Verification and testing</a></details><details open><summary>Quantum computing</summary><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states</a><a href="quantum-equivalence.html">Circuit equivalence</a><a href="quantum-foundations.html">Quantum computing foundations</a><a href="quantum-measurement.html">Measurement and bit ordering</a><a href="quantum-qaoa.html">QAOA and graph-cut experiments</a><a href="quantum-reproducibility.html">Reproducibility and evidence</a></details><details open><summary>Project reference</summary><a href="acceptance.html">Phase 1 acceptance coverage</a><a href="automated-reviews.html">Automated quality reviews</a><a href="product-spec.html">QORE — PHASE 1 MVP</a><a href="production.html" class="active" aria-current="page">Production operations</a><a href="quantum.html">QORE-IR and Supported Quantum Subset</a><a href="readme.html">QORE documentation</a><a href="security.html">Local execution guarantees and limitations</a></details></nav><div class="main-shell"><main class="article" id="main"><span class="breadcrumb">Project reference</span><h1>Production operations</h1><p class="lead">QORE serves the React workbench and FastAPI API from one origin. This release intentionally has no account, login, OAuth, or email-confirmation flow. Editable Explorer source is re</p><div class="concept"><small>CONCEPT AT A GLANCE</small><div class="concept-track"><span class="concept-step" style="--i:0">Write</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:1">Save</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:2">Explore</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:3">Verify</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:4">Keep evidence</span></div><p>Conceptual workflow. Numerical evidence and save status come from your actual QORE session.</p></div><p>QORE serves the React workbench and FastAPI API from one origin. This release intentionally has no account, login, OAuth, or email-confirmation flow. Editable Explorer source is retained in browser storage. Backend projects, runs, workspace records, and Ledger evidence use SQLite and an opaque browser-specific HttpOnly cookie. Simulation remains a bounded Qiskit environment rather than arbitrary Python, a general shell, or a hardware-job service.</p>
+<h2 id="runtime-architecture">Runtime architecture</h2>
+<p>The browser loads a static Vite build and calls same-origin <code>/api</code> routes. <code>AnonymousWorkspace</code> validates or creates a random UUID cookie, then scopes every database operation to <code>guest:&lt;uuid&gt;</code>. The cookie is HttpOnly and SameSite=Lax; production adds Secure. It is a capability for one browser profile, not proof of a person's identity. Anyone with control of that browser profile can use its QORE workspace.</p>
+<p>FastAPI validates request shape, size, origin, and host. Circuit work is passed to a bounded worker with explicit qubit, operation, shot, and timeout limits. SQLite stores project and evidence records. Gemini calls are optional, rate-limited, and server-side; the key is never accepted in JSON or compiled into the frontend.</p>
+<h2 id="required-host-settings">Required host settings</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Production value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QORE_ENV</code></td>
+<td><code>production</code></td>
+</tr>
+<tr>
+<td><code>QORE_STORAGE</code></td>
+<td><code>sqlite</code></td>
+</tr>
+<tr>
+<td><code>QORE_DB_PATH</code></td>
+<td>A path on the mounted persistent disk</td>
+</tr>
+<tr>
+<td><code>QORE_PUBLIC_URL</code></td>
+<td>The public HTTPS origin</td>
+</tr>
+<tr>
+<td><code>GEMINI_API_KEY</code></td>
+<td>Optional secret entered in the host dashboard</td>
+</tr>
+<tr>
+<td><code>GEMINI_MODEL</code></td>
+<td>An allowed Gemini model identifier</td>
+</tr>
+</tbody>
+</table></div>
+<p>Never put a Gemini or database credential in a <code>VITE_*</code> variable, Dockerfile, committed environment file, source comment, issue, screenshot, or CI log. The checked-in <code>.env.example</code> contains names and safe defaults only.</p>
+<h2 id="render-and-docker">Render and Docker</h2>
+<p>Build from the repository root with <code>Dockerfile</code>. The image installs the Python runtime, copies the built frontend, installs QORE, and starts Uvicorn on the platform-provided <code>PORT</code>. Attach a persistent disk and point <code>QORE_DB_PATH</code> into that mount. Without a disk, browser files still survive refreshes, but backend projects, runs, and Ledger records can disappear whenever Render replaces the container.</p>
+<p>After deployment, inspect <code>/api/health</code>. It should report <code>status: ok</code>, <code>storage: sqlite</code>, <code>auth_configured: false</code>, and <code>auth_required: false</code>. <code>ai_available</code> confirms that the server process can see configuration; a real QI request verifies provider connectivity. Never expose the value while debugging.</p>
+<h2 id="release-verification">Release verification</h2>
+<p>From the repository root run:</p>
+<pre><code class="language-powershell">&amp; .\.venv\Scripts\python.exe -m pytest backend/tests -q
+&amp; .\.venv\Scripts\python.exe scripts/production_acceptance.py
+&amp; .\.venv\Scripts\python.exe scripts/security_checker.py --check
+&amp; .\.venv\Scripts\python.exe scripts/frontend_auditor.py
+Set-Location frontend
+pnpm build
+pnpm test:ui
+</code></pre>
+<p>Tests distinguish mocked browser/provider checks from real numerical simulation. Validate Explorer by creating nested folders, renaming a subtree, editing two files, refreshing, deleting a folder, undoing it, and restoring another item from Trash. Validate QI in every view, including one question without a circuit and one source-matched simulation explanation.</p>
+<h2 id="github-actions-and-promotion">GitHub Actions and promotion</h2>
+<p>The quality workflow installs pinned package-manager and language versions, runs the daily quality report, builds the frontend, starts the local production server, and runs Playwright contracts. Do not promote an editing commit while a required job is red. A secret scan failure is a release failure even if the application builds.</p>
+<p>The recommended flow is editing branch → local verification → pull request checks → production branch/main. Generated evidence, databases, browser profiles, dependencies, and promotional recordings remain ignored. Only intentional source, documentation, lockfiles, migrations, and reproducible public assets belong in a release commit.</p>
+<h2 id="qi-assistant-operations">QI Assistant operations</h2>
+<p>QI uses <code>GEMINI_API_KEY</code> and <code>GEMINI_MODEL</code> from the backend process. The API assembles the active view, file name, bounded workspace summary, diagnostics, optional source, and source-matched run evidence. A model answer cannot trigger arbitrary commands. The local QI command map supports a small explicit set of QORE actions, while simulation and optimization still pass through normal validated endpoints.</p>
+<p>Rate limits are process-local: ten assistant calls per browser workspace per minute, two simultaneous provider calls, a bounded admission wait, and a provider timeout. Configure provider-side budgets and monitoring separately. Multiple replicas need a shared rate limiter and job queue before horizontal scaling.</p>
+<h2 id="backups-and-recovery">Backups and recovery</h2>
+<p>Back up the mounted SQLite database using a consistent snapshot method. Test restore into a separate service before treating backups as reliable. Browser source is separate: users should export important files before clearing site data or changing browser profiles. Trash provides a 48-hour application recovery window; it is not a replacement for database backups.</p>
+<h2 id="security-boundary">Security boundary</h2>
+<p>Origin checks, trusted hosts, request limits, constrained circuit parsing, isolated browser scopes, and secure headers reduce risk. They do not turn an account-free public deployment into authenticated multi-tenant storage. Use this release for local, personal, demonstration, or controlled-access environments. Add a reviewed identity layer before hosting confidential work for unrelated users.</p>
+<p>The previously committed privileged database credential must be rotated in its provider dashboard. Removing it from the current Dockerfile prevents new exposure but does not invalidate copies already present in Git history.</p>
+<div class="next-pages"><a href="product-spec.html">← QORE — PHASE 1 MVP</a><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states →</a></div><p class="footer-note">QORE reference · Bounded simulation, inspectable evidence, account-free browser workspace.</p></main><aside class="toc" aria-label="On this page"><h2>ON THIS PAGE</h2><a href="#runtime-architecture">Runtime architecture</a><a href="#required-host-settings">Required host settings</a><a href="#render-and-docker">Render and Docker</a><a href="#release-verification">Release verification</a><a href="#github-actions-and-promotion">GitHub Actions and promotion</a><a href="#qi-assistant-operations">QI Assistant operations</a><a href="#backups-and-recovery">Backups and recovery</a><a href="#security-boundary">Security boundary</a></aside></div></div></body></html>

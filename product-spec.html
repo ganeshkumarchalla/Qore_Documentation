@@ -1,0 +1,483 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101821"><title>QORE — PHASE 1 MVP · QORE Documentation</title><meta name="description" content="Product: QORE Full identity: The Core of Quantum Development Category: Intelligent Development Environment for Quantum Software Core principle: AI proposes. Verification checks. Ex"><link rel="canonical" href="https://qoredocs.vercel.app/product-spec.html"><link rel="icon" href="assets/qore.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><button class="icon-button" type="button" data-nav-toggle aria-label="Toggle documentation navigation" aria-controls="docs-sidebar" aria-expanded="true">☰</button><a class="brand" href="index.html"><img src="assets/qore.svg" alt="" width="29" height="29">QORE <small>DOCS</small></a><div class="search"><label for="docs-search" hidden>Search documentation</label><input id="docs-search" type="search" placeholder="Search the docs · Ctrl K" autocomplete="off"><div class="search-results" role="status"></div></div><a class="header-link" href="https://qore-bmh1.onrender.com/" rel="noopener">Open Studio ↗</a></header><button class="docs-menu-backdrop" type="button" aria-label="Close documentation navigation"></button><div class="shell"><nav class="sidebar" id="docs-sidebar" aria-label="Documentation topics"><p class="sidebar-title">QORE DOCUMENTATION</p><a href="index.html">Overview</a><details open><summary>Start here</summary><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries</a><a href="guides-first-experiment.html">Your first three-qubit experiment</a><a href="guides-getting-started.html">Getting started with QORE</a><a href="guides-learning-path.html">A learning path through quantum experiments</a><a href="guides-local-development.html">Local development</a><a href="guides-troubleshooting.html">Troubleshooting QORE</a><a href="guides-workspace-files.html">Files, folders, saving, and recovery</a></details><details open><summary>Workspace features</summary><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE</a><a href="features-forge.html">Forge: compiler candidates and verification</a><a href="features-quantum-lab.html">Quantum Lab: simulation and evidence</a><a href="features-research-ledger.html">Research Ledger: immutable experiment evidence</a><a href="features-state-world.html">State World and visual state inspection</a><a href="features-studio.html">Studio: editing and workspace organization</a><a href="features-terminal.html">Terminal, Output, Problems, and Debug</a></details><details open><summary>Technical reference</summary><a href="reference-api.html">HTTP API reference</a><a href="reference-architecture.html">Architecture and trust boundaries</a><a href="reference-circuit-python.html">Supported circuit language</a><a href="reference-limits.html">Runtime limits and compatibility</a><a href="reference-workspace-api.html">Workspace API and recovery model</a></details><details open><summary>Operate QORE</summary><a href="operations-backup-recovery.html">Backup and recovery</a><a href="operations-deployment.html">Deployment guide</a><a href="operations-scalability.html">Scalability and capacity</a><a href="operations-security.html">Security operations</a><a href="operations-testing.html">Verification and testing</a></details><details open><summary>Quantum computing</summary><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states</a><a href="quantum-equivalence.html">Circuit equivalence</a><a href="quantum-foundations.html">Quantum computing foundations</a><a href="quantum-measurement.html">Measurement and bit ordering</a><a href="quantum-qaoa.html">QAOA and graph-cut experiments</a><a href="quantum-reproducibility.html">Reproducibility and evidence</a></details><details open><summary>Project reference</summary><a href="acceptance.html">Phase 1 acceptance coverage</a><a href="automated-reviews.html">Automated quality reviews</a><a href="product-spec.html" class="active" aria-current="page">QORE — PHASE 1 MVP</a><a href="production.html">Production operations</a><a href="quantum.html">QORE-IR and Supported Quantum Subset</a><a href="readme.html">QORE documentation</a><a href="security.html">Local execution guarantees and limitations</a></details></nav><div class="main-shell"><main class="article" id="main"><span class="breadcrumb">Project reference</span><h1>QORE — PHASE 1 MVP</h1><p class="lead">Product: QORE Full identity: The Core of Quantum Development Category: Intelligent Development Environment for Quantum Software Core principle: AI proposes. Verification checks. Ex</p><div class="concept"><small>CONCEPT AT A GLANCE</small><div class="concept-track"><span class="concept-step" style="--i:0">Write</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:1">Save</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:2">Explore</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:3">Verify</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:4">Keep evidence</span></div><p>Conceptual workflow. Numerical evidence and save status come from your actual QORE session.</p></div><h2 id="complete-product-engineering-architecture-design-specification">Complete Product, Engineering, Architecture &amp; Design Specification</h2>
+<p><strong>Product:</strong> QORE<br />
+<strong>Full identity:</strong> The Core of Quantum Development<br />
+<strong>Category:</strong> Intelligent Development Environment for Quantum Software<br />
+<strong>Core principle:</strong> AI proposes. Verification checks. Experiments provide the evidence.</p>
+<hr />
+<h1 id="1-executive-summary">1. Executive Summary</h1>
+<p>QORE is an intelligent quantum software development environment designed to unify quantum programming, circuit visualization, simulation, optimization, verification, and reproducible experimentation.</p>
+<p>The goal is to make quantum software development more inspectable, measurable, and repeatable by connecting the entire development lifecycle within one coherent workspace.</p>
+<p>Instead of treating code editing, circuit visualization, simulation, optimization, and experiment tracking as isolated activities, QORE connects them through a shared quantum intermediate representation called <strong>QORE-IR</strong>.</p>
+<p>The platform follows an evidence-driven engineering philosophy: AI may propose changes, established quantum computing frameworks perform the actual computations, verification checks supported correctness properties, and experiment records preserve the evidence.</p>
+<p>Phase 1 establishes the foundation of this platform through a functional web-based IDE, a real local quantum simulator, a circuit analysis and optimization system, appropriate validation, and persistent experiment history.</p>
+<p>The objective is not to simulate the appearance of a complete quantum platform. It is to build a genuine, working foundation that can be extended into a broader quantum software infrastructure.</p>
+<h1 id="2-product-vision-and-problem-statement">2. Product Vision and Problem Statement</h1>
+<p>Quantum software development involves multiple connected tasks:</p>
+<ul>
+<li>Writing quantum programs.</li>
+<li>Translating source code into executable circuit representations.</li>
+<li>Understanding gates, qubits, control relationships, and measurements.</li>
+<li>Simulating quantum circuits.</li>
+<li>Evaluating circuit complexity and resource requirements.</li>
+<li>Optimizing circuit implementations.</li>
+<li>Checking whether transformations preserve intended behavior.</li>
+<li>Comparing theoretical expectations with measured outcomes.</li>
+<li>Preserving the exact configurations and results of experiments.</li>
+</ul>
+<p>When these activities are disconnected, understanding the relationship between source code, circuit transformations, simulation results, and experimental evidence becomes more difficult.</p>
+<p>QORE aims to provide a unified engineering environment in which these relationships remain visible.</p>
+<p><strong>The central problem QORE addresses:</strong> How can quantum developers move from quantum source code to an inspectable, tested, measurable, and reproducible experiment without losing the context connecting each stage?</p>
+<p>QORE complements existing quantum frameworks rather than assuming that established tools lack these capabilities. Its differentiation must be demonstrated through integration, transparency, reproducibility, and measurable engineering contributions.</p>
+<h1 id="3-core-product-principles">3. Core Product Principles</h1>
+<h3 id="3-1-ai-proposes">3.1 AI proposes</h3>
+<p>AI assistance can explain code, suggest circuit transformations, identify possible issues, and recommend experiments. Suggestions must be distinguishable from verified outcomes.</p>
+<h3 id="3-2-verification-checks">3.2 Verification checks</h3>
+<p>Supported circuits and transformations should be checked using appropriate validation methods. Syntax validity alone must never be represented as proof of semantic equivalence.</p>
+<h3 id="3-3-experiments-provide-the-evidence">3.3 Experiments provide the evidence</h3>
+<p>Simulation results, circuit metrics, optimization comparisons, configurations, and validation outcomes must come from real operations. Every saved experiment should retain enough information to understand how its results were produced.</p>
+<h3 id="3-4-human-approval-controls-changes">3.4 Human approval controls changes</h3>
+<p>AI-generated or automatically generated candidate transformations must not silently overwrite the original program. Users should inspect and approve changes.</p>
+<h3 id="3-5-scientific-honesty-is-mandatory">3.5 Scientific honesty is mandatory</h3>
+<p>QORE must distinguish theoretical values, simulated measurements, estimates, and actual hardware measurements. It must not claim quantum advantage, superior performance, or guaranteed optimization without supporting evidence.</p>
+<h1 id="4-phase-1-mvp-scope">4. Phase 1 MVP Scope</h1>
+<p>Build a responsive, desktop-oriented web application with six connected functional areas:</p>
+<ol>
+<li><strong>QORE Studio</strong> — quantum code editing and project management.</li>
+<li><strong>QORE Circuit Viewer</strong> — circuit visualization and resource analysis.</li>
+<li><strong>QORE Lab</strong> — real local simulation and measurement feedback.</li>
+<li><strong>QORE Forge</strong> — optimization, candidate comparison, and validation.</li>
+<li><strong>QORE Intelligence</strong> — optional context-aware AI assistance.</li>
+<li><strong>QORE Research</strong> — experiment history, reproducibility, and provenance.</li>
+</ol>
+<p>All six areas must use consistent project and circuit data. If AI integration cannot be completed reliably, the other five areas must continue working.</p>
+<h2 id="4-1-qore-studio">4.1 QORE Studio</h2>
+<p>Create the primary quantum development workspace.</p>
+<p>Required features:</p>
+<ul>
+<li>Editable source-code editor.</li>
+<li>Syntax highlighting for the supported programming format.</li>
+<li>New, open, rename, and save project operations.</li>
+<li>Working example projects.</li>
+<li>Parse, validate, and run actions.</li>
+<li>Clear error messages for invalid or unsupported code.</li>
+<li>Execution status and loading indicators.</li>
+<li>Unsaved-change awareness.</li>
+<li>Project navigation and experiment history.</li>
+</ul>
+<p>Use Monaco Editor if compatible with the existing stack.</p>
+<p>For Phase 1, implement a documented and tested subset of Qiskit-based quantum programs. Do not claim arbitrary Python or full Qiskit compatibility unless actually implemented and tested.</p>
+<h2 id="4-2-qore-ir-quantum-intermediate-representation">4.2 QORE-IR — Quantum Intermediate Representation</h2>
+<p>QORE-IR is the shared representation connecting the development workflow.</p>
+<p>It must provide a consistent source of truth for:</p>
+<ul>
+<li>Qubit declarations.</li>
+<li>Supported quantum operations.</li>
+<li>Gate parameters.</li>
+<li>Control and target relationships.</li>
+<li>Measurements.</li>
+<li>Classical output mappings.</li>
+<li>Circuit ordering.</li>
+<li>Circuit serialization.</li>
+<li>Resource metrics.</li>
+<li>Simulation preparation.</li>
+<li>Optimization transformations.</li>
+<li>Validation.</li>
+<li>Experiment persistence.</li>
+</ul>
+<p>Define a versioned schema and document supported operations.</p>
+<p>The parser must convert supported source programs into a real framework circuit object or a validated normalized representation. Do not use fragile text matching as a substitute for parsing executable language constructs.</p>
+<p>The frontend visualizer, analysis engine, simulator, and optimizer must not independently invent different interpretations of the same circuit.</p>
+<p>Where framework-native circuit objects are used, define how they map into QORE-IR and back.</p>
+<h2 id="4-3-qore-circuit-viewer">4.3 QORE Circuit Viewer</h2>
+<p>Render the actual circuit derived from QORE-IR.</p>
+<p>Display:</p>
+<ul>
+<li>Qubit wires and labels.</li>
+<li>Quantum gates and their parameters.</li>
+<li>Controlled gates and connections.</li>
+<li>Measurement operations.</li>
+<li>Classical output connections.</li>
+<li>Circuit depth.</li>
+<li>Gate count.</li>
+<li>Two-qubit gate count.</li>
+<li>Applicable gate-type statistics.</li>
+</ul>
+<p>Circuit visualization must update when a new supported program is parsed.</p>
+<p>Provide clear feedback for unsupported gates and structures.</p>
+<p>Use SVG rendering or an appropriate circuit visualization library. Avoid static diagrams presented as live circuit visualizations.</p>
+<h2 id="4-4-qore-lab">4.4 QORE Lab</h2>
+<p>Integrate a real local quantum simulator using Qiskit and Qiskit Aer, or a compatible documented alternative.</p>
+<p>Required features:</p>
+<ul>
+<li>Execute supported circuits.</li>
+<li>Configure shot count.</li>
+<li>Display actual measurement counts.</li>
+<li>Calculate and display measurement probabilities.</li>
+<li>Display circuit and simulator metadata.</li>
+<li>Show execution errors and warnings.</li>
+<li>Distinguish theoretical probabilities from finite-shot measurements.</li>
+<li>Preserve the configuration used for an experiment.</li>
+</ul>
+<h3 id="required-demonstration-bell-state-circuit">Required demonstration: Bell-state circuit</h3>
+<p>Implement a working Bell-state example:</p>
+<ol>
+<li>Apply a Hadamard gate to the first qubit.</li>
+<li>Apply a CNOT gate using the first qubit as control and the second as target.</li>
+<li>Measure both qubits.</li>
+</ol>
+<p>Under ideal conditions, the expected outcomes are <code>00</code> and <code>11</code>, each with probability approximately 50%. The other two outcomes should have probability approximately zero.</p>
+<p>Actual finite-shot measurements may vary.</p>
+<p>Account for Qiskit's classical bit-string ordering and explain the displayed mapping clearly.</p>
+<p>Use this experiment to demonstrate circuit construction, visualization, execution, measurement distributions, and interpretation.</p>
+<p>Do not present Bell-state correlation as evidence of quantum computational advantage.</p>
+<h2 id="4-5-qore-forge-optimization-and-verification">4.5 QORE Forge — Optimization and Verification</h2>
+<p>QORE Forge is the principal technical component of Phase 1.</p>
+<p>Implement a working pipeline that creates an optimized candidate from an original circuit using a supported quantum compiler optimization pass.</p>
+<p>Required functionality:</p>
+<ul>
+<li>Preserve the original circuit.</li>
+<li>Generate a separate candidate.</li>
+<li>Record the optimization pass and settings.</li>
+<li>Render both circuit versions.</li>
+<li>Calculate comparable metrics.</li>
+<li>Display absolute and relative differences where meaningful.</li>
+<li>Explain the transformation at a useful level.</li>
+<li>Validate supported semantic properties.</li>
+<li>Allow the user to inspect and approve the candidate.</li>
+</ul>
+<p>Metrics should include applicable measures such as:</p>
+<ul>
+<li>Gate count.</li>
+<li>Circuit depth.</li>
+<li>Two-qubit gate count.</li>
+<li>Qubit count.</li>
+<li>Gate-type distribution.</li>
+</ul>
+<p>Document whether measurements, barriers, and other instructions contribute to each metric.</p>
+<p>Use established compiler optimizations as the baseline. Clearly identify framework-provided transformations versus any original QORE-specific method.</p>
+<p>Do not hardcode performance improvements. If optimization does not improve a metric, display the actual result.</p>
+<h3 id="validation-requirements">Validation requirements</h3>
+<p>Use a suitable method for the supported circuit and transformation, such as statevector comparison up to global phase for applicable small unitary circuits, or output-distribution comparison under controlled equivalent simulation settings.</p>
+<p>Handle measurements, classical operations, and unsupported constructs according to the selected validation method.</p>
+<p>Report one of the following as appropriate:</p>
+<ul>
+<li>Validated under the stated method.</li>
+<li>Validation failed.</li>
+<li>Validation unavailable.</li>
+<li>Validation inconclusive.</li>
+</ul>
+<p>Do not equate successful parsing or compilation with proof of equivalence.</p>
+<h2 id="4-6-qore-intelligence">4.6 QORE Intelligence</h2>
+<p>Provide an optional AI assistant grounded in the current project and available execution data.</p>
+<p>It should be able to:</p>
+<ul>
+<li>Explain supported quantum source code.</li>
+<li>Describe gates and circuit structure.</li>
+<li>Interpret simulator outputs.</li>
+<li>Explain resource metrics.</li>
+<li>Summarize optimization differences.</li>
+<li>Suggest possible improvements.</li>
+<li>Help diagnose errors.</li>
+<li>Recommend experiments.</li>
+</ul>
+<p>AI responses must be grounded in actual code, circuit metadata, and results when relevant. The assistant must never claim that it executed a program or verified a transformation when that operation did not occur.</p>
+<p>Use a server-side API integration, such as Gemini, only when credentials and access are available.</p>
+<p>Keep credentials server-side, use environment variables or an appropriate secret manager, and provide graceful handling when the AI service is unavailable.</p>
+<p>AI must remain an optional assistance layer rather than a dependency for core quantum functionality.</p>
+<h2 id="4-7-qore-research-reproducibility-ledger">4.7 QORE Research — Reproducibility Ledger</h2>
+<p>Create persistent project and experiment records.</p>
+<p>Store applicable information such as:</p>
+<ul>
+<li>Project and experiment identifiers.</li>
+<li>Source code.</li>
+<li>Source-code SHA-256 hash.</li>
+<li>QORE-IR version.</li>
+<li>Framework and simulator versions.</li>
+<li>Backend identifier.</li>
+<li>Shot count.</li>
+<li>Random seed, where supported and configured.</li>
+<li>Circuit metrics.</li>
+<li>Optimization settings.</li>
+<li>Original and optimized representations.</li>
+<li>Simulation results.</li>
+<li>Validation method and outcome.</li>
+<li>Execution metadata.</li>
+<li>Timestamps.</li>
+<li>Errors and warnings.</li>
+</ul>
+<p>Use SQLite for the initial persistence layer.</p>
+<p>Provide the ability to list, save, reopen, and inspect previous experiments.</p>
+<p>Historical results must remain distinguishable from newly executed results.</p>
+<p>A source hash supports identification of code content, but must not be presented as proof of execution correctness. Preserve the associated configuration and relevant dependency metadata as well.</p>
+<p>If exact reproducibility cannot be guaranteed, clearly state why.</p>
+<h1 id="5-complete-end-to-end-workflow">5. Complete End-to-End Workflow</h1>
+<p>The flagship demonstration must work through one connected interface:</p>
+<p><strong>Open Project → Edit Code → Parse → Visualize → Analyze → Simulate → Optimize → Validate → Compare → Save → Reopen</strong></p>
+<ol>
+<li>Open the Bell-state example.</li>
+<li>Parse the supported program into QORE-IR.</li>
+<li>Render the actual circuit.</li>
+<li>Display circuit resource metrics.</li>
+<li>Execute a genuine local simulation.</li>
+<li>Show measurement counts and probabilities.</li>
+<li>Create an optimized candidate using a real compiler pass.</li>
+<li>Compare original and candidate circuits.</li>
+<li>Run an appropriate validation check.</li>
+<li>Save the source, configuration, results, and provenance.</li>
+<li>Reopen the experiment and confirm that its historical record is preserved.</li>
+</ol>
+<p>Every stage must operate on actual application data. A visually complete screen without working backend functionality does not satisfy this requirement.</p>
+<h1 id="6-architecture-and-technology-stack">6. Architecture and Technology Stack</h1>
+<p>Follow the architecture specified in the submitted QORE presentation.</p>
+<h3 id="frontend">Frontend</h3>
+<ul>
+<li>React.</li>
+<li>TypeScript.</li>
+<li>Tailwind CSS.</li>
+<li>Monaco Editor.</li>
+<li>SVG-based circuit rendering or a suitable visualization library.</li>
+<li>Charts for measurement distributions and metric comparisons.</li>
+</ul>
+<h3 id="backend">Backend</h3>
+<ul>
+<li>Python.</li>
+<li>FastAPI.</li>
+<li>Pydantic.</li>
+<li>Qiskit.</li>
+<li>Qiskit Aer or a compatible local simulator.</li>
+<li>SQLite.</li>
+<li>pytest.</li>
+</ul>
+<h3 id="architecture-layers">Architecture layers</h3>
+<p><strong>Presentation layer:</strong> IDE, editor, circuit viewer, simulation panels, optimization comparisons, experiment history.</p>
+<p><strong>Application layer:</strong> project workflows, execution orchestration, validation, optimization, experiment management.</p>
+<p><strong>Quantum processing layer:</strong> parsing, QORE-IR conversion, circuit construction, simulation, resource analysis, optimization and validation.</p>
+<p><strong>Persistence layer:</strong> projects, experiment records, configurations, results, provenance and version metadata.</p>
+<p>Use structured API contracts and consistent error responses.</p>
+<p>The application must start locally with documented setup instructions. Adapt to the existing repository rather than replacing a working architecture without justification.</p>
+<h1 id="7-safe-execution-architecture">7. Safe Execution Architecture</h1>
+<p>The submitted presentation specifies static AST pre-validation, a controlled namespace, an isolated runtime, and deterministic resource caps.</p>
+<p>Implement a security-conscious approach that reflects these goals.</p>
+<p>Required safeguards:</p>
+<ul>
+<li>Restrict the supported input constructs.</li>
+<li>Validate source before execution.</li>
+<li>Avoid unrestricted execution of arbitrary user-provided Python.</li>
+<li>Use a controlled namespace.</li>
+<li>Apply execution timeouts and resource limits.</li>
+<li>Isolate execution where feasible.</li>
+<li>Limit filesystem and network access.</li>
+<li>Validate API inputs.</li>
+<li>Keep API credentials out of the frontend.</li>
+<li>Handle oversized and malformed requests.</li>
+<li>Prevent a failed run from crashing the entire application.</li>
+</ul>
+<p>Static AST validation alone is not a complete sandbox. If execution isolation cannot be implemented reliably, construct supported circuits through a constrained interpreter or controlled circuit-building layer instead of executing arbitrary Python.</p>
+<p>Document the actual security guarantees and limitations.</p>
+<h1 id="8-extension-api-and-future-ecosystem">8. Extension API and Future Ecosystem</h1>
+<p>Design QORE's internal architecture to support future extension points.</p>
+<p>Potential extension categories include:</p>
+<p><strong>Hardware connectors:</strong> provider-specific quantum processing unit adapters.</p>
+<p><strong>Compiler passes:</strong> additional circuit transformations.</p>
+<p><strong>AI and analytics plugins:</strong> diagnostic tools and experiment analysis.</p>
+<p>A future extension contract may expose interfaces conceptually similar to:</p>
+<ul>
+<li><code>provider.execute(job)</code></li>
+<li><code>pass.run(circuit)</code></li>
+<li><code>plugin.analyze(run)</code></li>
+</ul>
+<p>These are interface concepts, not a claim that a stable public plugin API already exists.</p>
+<p>For Phase 1, implement only the extension points that are necessary and testable. Document future interfaces instead of creating empty integrations.</p>
+<h1 id="9-reproducibility-and-experiment-telemetry">9. Reproducibility and Experiment Telemetry</h1>
+<p>Every experiment should have a traceable record connecting its source, configuration, execution, and output.</p>
+<p>The submitted presentation identifies source hashing, side-by-side comparisons, total variation distance (TVD), and persistent audit trails as important elements.</p>
+<p>Implement these carefully:</p>
+<ul>
+<li>Calculate source hashes from actual source content.</li>
+<li>Preserve the backend and simulator configuration.</li>
+<li>Record shot count and seed when applicable.</li>
+<li>Save original and optimized circuit metrics.</li>
+<li>Preserve the results used in a comparison.</li>
+<li>Store the validation method and outcome.</li>
+<li>Calculate TVD only when valid probability distributions are available.</li>
+</ul>
+<p>For discrete probability distributions (P) and (Q), total variation distance is:</p>
+<p>[
+\operatorname{TVD}(P,Q)=\frac{1}{2}\sum_x |P(x)-Q(x)|
+]</p>
+<p>Explain what two distributions are being compared. For example, a simulated measurement distribution may be compared with an ideal reference distribution.</p>
+<p>Do not copy illustrative telemetry values from a mockup and present them as measured application results.</p>
+<h1 id="10-interface-and-visual-design-system">10. Interface and Visual Design System</h1>
+<p>The implementation must follow the submitted QORE presentation's visual identity.</p>
+<h3 id="color-palette">Color palette</h3>
+<ul>
+<li><strong>Primary background:</strong> <code>#080B14</code></li>
+<li><strong>Panel background:</strong> <code>#0F1523</code> or a visually compatible deep navy.</li>
+<li><strong>Primary text:</strong> <code>#F4F7FF</code></li>
+<li><strong>Secondary text:</strong> accessible muted gray.</li>
+<li><strong>Cyan accent:</strong> <code>#57D9FF</code></li>
+<li><strong>Violet accent:</strong> <code>#9A83FF</code></li>
+<li><strong>Borders:</strong> subtle blue-gray with restrained cyan or violet emphasis.</li>
+</ul>
+<p>Use the values above as design tokens, allowing adjustments only when necessary for contrast and consistency with the presentation.</p>
+<h3 id="visual-language">Visual language</h3>
+<ul>
+<li>Dark scientific developer-tool aesthetic.</li>
+<li>Bold white headings.</li>
+<li>Cyan monospace section labels and technical metadata.</li>
+<li>Violet accents for secondary technical emphasis.</li>
+<li>Thin borders.</li>
+<li>Subtle radial ambient glows.</li>
+<li>Carefully layered navy surfaces.</li>
+<li>Restrained transitions and hover states.</li>
+<li>Clear visual hierarchy.</li>
+<li>Consistent spacing and alignment.</li>
+</ul>
+<p>Avoid generic dashboard styling, excessive gradients, decorative glass effects, unnecessary animation, and inconsistent colors.</p>
+<h3 id="application-layout">Application layout</h3>
+<p><strong>Left sidebar:</strong> projects, source files, examples, experiments.</p>
+<p><strong>Main workspace:</strong> source editor and circuit visualization.</p>
+<p><strong>Results panel:</strong> simulation output, measurements, resource metrics, optimization and validation status.</p>
+<p><strong>Optional assistant panel:</strong> context-aware AI assistance.</p>
+<p><strong>Top navigation:</strong> project controls and the main workflow actions.</p>
+<p>Make the layout responsive. Desktop is the primary target, while smaller screens should retain access to essential functions through appropriate panels or tabs.</p>
+<h3 id="interface-states">Interface states</h3>
+<p>Implement real states for:</p>
+<ul>
+<li>Empty workspace.</li>
+<li>Project loaded.</li>
+<li>Parsing.</li>
+<li>Parse success or failure.</li>
+<li>Simulation in progress.</li>
+<li>Simulation results.</li>
+<li>Simulator error.</li>
+<li>Optimization in progress.</li>
+<li>Optimization results.</li>
+<li>No measurable improvement.</li>
+<li>Validation success, failure or unavailable.</li>
+<li>Experiment saved.</li>
+<li>Experiment reopened.</li>
+<li>AI unavailable.</li>
+</ul>
+<p>Every primary button must perform its advertised action.</p>
+<h1 id="11-competitive-positioning">11. Competitive Positioning</h1>
+<p>QORE should be positioned as an integrated, evidence-driven quantum development environment that can complement existing quantum software ecosystems.</p>
+<p>Relevant ecosystems include Qiskit, Cirq, Microsoft Quantum Development Kit, and OpenQASM-compatible tools.</p>
+<p>Do not claim that QORE replaces these tools or provides superior quantum computation simply because it combines their general workflow stages.</p>
+<p>The defensible value proposition is the connection between:</p>
+<ul>
+<li>Source code and circuit representation.</li>
+<li>Circuit visualization and resource metrics.</li>
+<li>Simulation and measurement analysis.</li>
+<li>Optimization and candidate validation.</li>
+<li>Experiment outputs and reproducible provenance.</li>
+</ul>
+<p>Any claim of novelty or performance improvement must be supported by actual implementation evidence or reproducible measurements.</p>
+<h1 id="12-testing-and-acceptance-criteria">12. Testing and Acceptance Criteria</h1>
+<h3 id="parsing-tests">Parsing tests</h3>
+<p>Test valid supported programs, invalid syntax, unsupported operations, malformed inputs, and measurement mapping.</p>
+<h3 id="circuit-tests">Circuit tests</h3>
+<p>Verify gate order, control-target relationships, visualization consistency, and metric calculations.</p>
+<h3 id="simulation-tests">Simulation tests</h3>
+<p>Test Bell-state behavior, shot count, probability calculations, bit ordering, and execution failures.</p>
+<h3 id="optimization-tests">Optimization tests</h3>
+<p>Confirm that the original circuit is preserved, the candidate comes from a real optimization pass, metrics are calculated consistently, and non-improving results are reported honestly.</p>
+<h3 id="validation-tests">Validation tests</h3>
+<p>Verify the selected equivalence or behavioral comparison method and confirm that unsupported cases are not incorrectly marked as validated.</p>
+<h3 id="persistence-tests">Persistence tests</h3>
+<p>Test project saving, experiment creation, retrieval, reopening, and preservation of historical results.</p>
+<h3 id="security-tests">Security tests</h3>
+<p>Test request validation, supported-source restrictions, secret handling, resource limits, and error recovery.</p>
+<h3 id="final-acceptance-test">Final acceptance test</h3>
+<p>A user must be able to complete the entire Bell-state workflow in the actual running application. The application must execute real operations, display their actual outputs, and reopen the saved experiment.</p>
+<p>Report only tests that were actually executed.</p>
+<h1 id="13-implementation-roadmap">13. Implementation Roadmap</h1>
+<h3 id="phase-1a-foundation">Phase 1A — Foundation</h3>
+<p>Inspect the existing codebase, preserve working functionality, establish the supported source subset, define QORE-IR, and implement backend/frontend communication.</p>
+<h3 id="phase-1b-core-quantum-workflow">Phase 1B — Core Quantum Workflow</h3>
+<p>Implement Studio, parsing, circuit visualization, circuit metrics, local simulation, and the Bell-state demonstration.</p>
+<h3 id="phase-1c-qore-forge">Phase 1C — QORE Forge</h3>
+<p>Implement optimization, original-versus-candidate comparison, appropriate validation, and transparent reporting.</p>
+<h3 id="phase-1d-qore-research">Phase 1D — QORE Research</h3>
+<p>Implement SQLite persistence, experiment provenance, saved project retrieval, and experiment reopening.</p>
+<h3 id="phase-1e-product-quality">Phase 1E — Product Quality</h3>
+<p>Apply the final visual system, improve accessibility and responsive layouts, add loading and failure states, and execute the automated tests.</p>
+<h3 id="phase-1f-optional-intelligence">Phase 1F — Optional Intelligence</h3>
+<p>Integrate grounded AI assistance only after the core workflow is reliable.</p>
+<p>Do not start future platform modules while critical Phase 1 acceptance criteria remain unmet.</p>
+<h1 id="14-long-term-roadmap">14. Long-Term Roadmap</h1>
+<p>The presentation identifies three horizons.</p>
+<p><strong>Horizon 1 — Foundation</strong></p>
+<ul>
+<li>Local quantum IDE.</li>
+<li>QORE-IR.</li>
+<li>Circuit visualization.</li>
+<li>Aer simulation.</li>
+<li>Forge optimization.</li>
+<li>Debugging and experiment persistence.</li>
+</ul>
+<p><strong>Horizon 2 — Connected Development</strong></p>
+<ul>
+<li>Cloud synchronization.</li>
+<li>Multi-user collaboration.</li>
+<li>Hardware and provider adapters.</li>
+<li>Hybrid quantum-classical workflows.</li>
+<li>Expanded optimization and debugging.</li>
+</ul>
+<p><strong>Horizon 3 — Broader Quantum Infrastructure</strong></p>
+<ul>
+<li>Expanded framework integrations.</li>
+<li>Advanced AI-assisted engineering.</li>
+<li>Research and benchmarking infrastructure.</li>
+<li>Support for larger and more sophisticated quantum workloads.</li>
+<li>Enterprise-oriented and industrial workflows where technically justified.</li>
+</ul>
+<p>These horizons represent the product direction, not completed Phase 1 features.</p>
+<h1 id="15-definition-of-done">15. Definition of Done</h1>
+<p>Phase 1 is complete when:</p>
+<ul>
+<li>The application starts using documented instructions.</li>
+<li>Users can edit and save supported quantum programs.</li>
+<li>QORE-IR consistently represents the supported circuits.</li>
+<li>The circuit viewer reflects actual parsed data.</li>
+<li>The local simulator returns genuine results.</li>
+<li>Resource metrics are computed from real circuit objects.</li>
+<li>QORE Forge creates and compares real optimization candidates.</li>
+<li>Appropriate validation is performed and accurately reported.</li>
+<li>Experiments can be saved and reopened.</li>
+<li>The provenance record captures relevant source and execution metadata.</li>
+<li>The visual design matches QORE's submitted identity.</li>
+<li>Critical automated tests have been executed.</li>
+<li>Unsupported operations and incomplete capabilities are documented.</li>
+<li>No fake metrics, hardcoded execution results, or simulated success states are presented as real.</li>
+</ul>
+<h1 id="16-required-final-engineering-report">16. Required Final Engineering Report</h1>
+<p>At the end of implementation, provide:</p>
+<ol>
+<li>Repository assessment and existing functionality.</li>
+<li>Features implemented.</li>
+<li>Actual technology stack.</li>
+<li>Architecture and QORE-IR design.</li>
+<li>Supported source constructs and limitations.</li>
+<li>Setup and execution instructions.</li>
+<li>Actual automated test results.</li>
+<li>Actual Bell-state simulation output.</li>
+<li>Actual optimization comparison.</li>
+<li>Validation method and result.</li>
+<li>Persistence and experiment-reopening results.</li>
+<li>Security measures and remaining limitations.</li>
+<li>Known bugs and unfinished features.</li>
+<li>Screenshots of the running application.</li>
+<li>Recommended next engineering priorities.</li>
+</ol>
+<p>Clearly distinguish implemented features, verified outcomes, planned features, and untested claims.</p>
+<p>Do not fabricate successful tests, performance gains, circuit equivalence, or execution statistics.</p>
+<h1 id="final-implementation-directive">Final Implementation Directive</h1>
+<p>Inspect the existing repository first. Preserve working code and existing functionality wherever possible.</p>
+<p>Implement QORE as a cohesive quantum software development environment following the submitted presentation's visual identity, modular architecture, and evidence-driven philosophy.</p>
+<p>Prioritize the complete workflow:</p>
+<p><strong>Write Code → Visualize → Simulate → Analyze → Optimize → Validate → Compare → Save → Reopen</strong></p>
+<p>Use genuine quantum framework operations, real simulation results, transparent optimization comparisons, appropriate verification, and persistent experiment provenance.</p>
+<p>Build the smallest complete and reliable implementation that satisfies the acceptance criteria. Run the available tests, fix failures, document limitations, and report the actual results.</p>
+<p>The goal is not to make QORE look finished. The goal is to make its core engineering workflow genuinely work.</p>
+<div class="next-pages"><a href="operations-testing.html">← Verification and testing</a><a href="production.html">Production operations →</a></div><p class="footer-note">QORE reference · Bounded simulation, inspectable evidence, account-free browser workspace.</p></main><aside class="toc" aria-label="On this page"><h2>ON THIS PAGE</h2><a href="#complete-product-engineering-architecture-design-specification">Complete Product, Engineering, Architecture &amp; Design Specification</a><a href="#3-1-ai-proposes">3.1 AI proposes</a><a href="#3-2-verification-checks">3.2 Verification checks</a><a href="#3-3-experiments-provide-the-evidence">3.3 Experiments provide the evidence</a><a href="#3-4-human-approval-controls-changes">3.4 Human approval controls changes</a><a href="#3-5-scientific-honesty-is-mandatory">3.5 Scientific honesty is mandatory</a><a href="#4-1-qore-studio">4.1 QORE Studio</a><a href="#4-2-qore-ir-quantum-intermediate-representation">4.2 QORE-IR — Quantum Intermediate Representation</a><a href="#4-3-qore-circuit-viewer">4.3 QORE Circuit Viewer</a><a href="#4-4-qore-lab">4.4 QORE Lab</a><a href="#required-demonstration-bell-state-circuit">Required demonstration: Bell-state circuit</a><a href="#4-5-qore-forge-optimization-and-verification">4.5 QORE Forge — Optimization and Verification</a><a href="#validation-requirements">Validation requirements</a><a href="#4-6-qore-intelligence">4.6 QORE Intelligence</a><a href="#4-7-qore-research-reproducibility-ledger">4.7 QORE Research — Reproducibility Ledger</a><a href="#frontend">Frontend</a><a href="#backend">Backend</a><a href="#architecture-layers">Architecture layers</a><a href="#color-palette">Color palette</a><a href="#visual-language">Visual language</a><a href="#application-layout">Application layout</a><a href="#interface-states">Interface states</a><a href="#parsing-tests">Parsing tests</a><a href="#circuit-tests">Circuit tests</a><a href="#simulation-tests">Simulation tests</a><a href="#optimization-tests">Optimization tests</a><a href="#validation-tests">Validation tests</a><a href="#persistence-tests">Persistence tests</a><a href="#security-tests">Security tests</a><a href="#final-acceptance-test">Final acceptance test</a><a href="#phase-1a-foundation">Phase 1A — Foundation</a><a href="#phase-1b-core-quantum-workflow">Phase 1B — Core Quantum Workflow</a><a href="#phase-1c-qore-forge">Phase 1C — QORE Forge</a><a href="#phase-1d-qore-research">Phase 1D — QORE Research</a><a href="#phase-1e-product-quality">Phase 1E — Product Quality</a><a href="#phase-1f-optional-intelligence">Phase 1F — Optional Intelligence</a></aside></div></div></body></html>
