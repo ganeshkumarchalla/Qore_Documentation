@@ -20,6 +20,10 @@
 <td>Simulate active source using workspace settings</td>
 </tr>
 <tr>
+<td><code>parse</code>, <code>validate</code>, <code>qiskit validate</code></td>
+<td>Execute bounded parsing and validation without sampling</td>
+</tr>
+<tr>
 <td><code>transpile</code>, <code>opt</code>, <code>optimize</code>, <code>qiskit transpile</code></td>
 <td>Request a Forge candidate using selected settings</td>
 </tr>
@@ -30,6 +34,14 @@
 <tr>
 <td><code>qiskit backends</code></td>
 <td>Show last backend and reported engine limits</td>
+</tr>
+<tr>
+<td><code>qiskit capabilities</code></td>
+<td>Query executable languages, workflows, modules, methods, gates and safety boundary</td>
+</tr>
+<tr>
+<td><code>qiskit gates</code>, <code>qiskit modules</code>, <code>qiskit methods</code>, <code>qiskit limits</code></td>
+<td>Query the server-owned runtime contract</td>
 </tr>
 </tbody>
 </table></div>
@@ -61,6 +73,30 @@
 <td>Available circuit operator</td>
 </tr>
 <tr>
+<td><code>qiskit qasm</code></td>
+<td>Backend-generated OpenQASM 2.0</td>
+</tr>
+<tr>
+<td><code>qiskit bloch</code>, <code>qiskit purity</code></td>
+<td>Per-qubit Bloch coordinates and reduced-state purity</td>
+</tr>
+<tr>
+<td><code>qiskit ideal</code></td>
+<td>Ideal reference probabilities attached to the current simulation</td>
+</tr>
+<tr>
+<td><code>qiskit bitorder</code></td>
+<td>Recorded classical mapping and bitstring convention</td>
+</tr>
+<tr>
+<td><code>qiskit noise</code></td>
+<td>Simulator method and applied noise configuration</td>
+</tr>
+<tr>
+<td><code>qiskit result</code>, <code>qiskit source-hash</code></td>
+<td>Source-matched parse, simulation and Forge provenance</td>
+</tr>
+<tr>
 <td><code>probs</code></td>
 <td>Sampled probabilities</td>
 </tr>
@@ -80,7 +116,7 @@
 </table></div>
 <p>Statevector and unitary output obey their display limits. A missing matrix above four qubits is expected. <code>ast</code> is retained as a familiar shortcut, but the displayed object is the circuit intermediate representation used by the application. Read <a href="reference-architecture.html">QORE architecture</a> for that representation's role.</p>
 <h2 id="work-with-the-active-buffer">Work with the active buffer</h2>
-<p><code>ls</code> and <code>pwd</code> identify the active file/path context. <code>cat</code> displays the active source; an optional argument must refer to that active buffer. The console is not an unrestricted directory browser and does not expose other container files. Use Explorer to select another workspace file before inspecting it here.</p>
+<p><code>ls</code>, <code>tree</code>, and <code>pwd</code> inspect the browser workspace only. <code>cat</code>, <code>head</code>, and <code>wc</code> may read a file already present in that browser workspace. These commands never address the server container, host filesystem, environment files, or another user's workspace.</p>
 <p><code>date</code>, <code>echo</code>, and <code>clear</code> are console utilities. Command history is bounded. Use the help output as the authority for accepted syntax. Extra arguments to actions that take none should produce a clear warning rather than being interpreted as shell flags.</p>
 <p>Commands such as package installation, file deletion through a host shell, remote SSH, hardware submission, or an unrelated cloud CLI are not executed. Unsupported commands should say so. This boundary protects both users and the shared service from a misleading terminal that pretends to have capabilities it lacks.</p>
 <h2 id="error-locations-and-source-truth">Error locations and source truth</h2>
