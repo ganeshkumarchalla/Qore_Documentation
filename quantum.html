@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101821"><title>QORE-IR and Supported Quantum Subset · QORE Documentation</title><meta name="description" content="QORE Phase 1 implements a strictly controlled subset of Qiskit Python programs. Arbitrary Python code is parsed via Python&#x27;s ast module and walked through a restricted visitor allo"><link rel="canonical" href="https://qoredocs.vercel.app/quantum.html"><link rel="icon" href="assets/qore.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><button class="icon-button" type="button" data-nav-toggle aria-label="Toggle documentation navigation" aria-controls="docs-sidebar" aria-expanded="true">☰</button><a class="brand" href="index.html"><img src="assets/qore.svg" alt="" width="29" height="29">QORE <small>DOCS</small></a><div class="search"><label for="docs-search" hidden>Search documentation</label><input id="docs-search" type="search" placeholder="Search the docs · Ctrl K" autocomplete="off"><div class="search-results" role="status"></div></div><a class="header-link" href="https://qore-bmh1.onrender.com/" rel="noopener">Open Studio ↗</a></header><button class="docs-menu-backdrop" type="button" aria-label="Close documentation navigation"></button><div class="shell"><nav class="sidebar" id="docs-sidebar" aria-label="Documentation topics"><p class="sidebar-title">QORE DOCUMENTATION</p><a href="index.html">Overview</a><details open><summary>Start here</summary><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries</a><a href="guides-first-experiment.html">Your first three-qubit experiment</a><a href="guides-getting-started.html">Getting started with QORE</a><a href="guides-learning-path.html">A learning path through quantum experiments</a><a href="guides-local-development.html">Local development</a><a href="guides-troubleshooting.html">Troubleshooting QORE</a><a href="guides-workspace-files.html">Files, folders, saving, and recovery</a></details><details open><summary>Workspace features</summary><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE</a><a href="features-forge.html">Forge: compiler candidates and verification</a><a href="features-quantum-lab.html">Quantum Lab: simulation and evidence</a><a href="features-research-ledger.html">Research Ledger: immutable experiment evidence</a><a href="features-state-world.html">State World and visual state inspection</a><a href="features-studio.html">Studio: editing and workspace organization</a><a href="features-terminal.html">Terminal, Output, Problems, and Debug</a></details><details open><summary>Technical reference</summary><a href="reference-api.html">HTTP API reference</a><a href="reference-architecture.html">Architecture and trust boundaries</a><a href="reference-circuit-python.html">Supported circuit language</a><a href="reference-limits.html">Runtime limits and compatibility</a><a href="reference-workspace-api.html">Workspace API and recovery model</a></details><details open><summary>Operate QORE</summary><a href="operations-backup-recovery.html">Backup and recovery</a><a href="operations-deployment.html">Deployment guide</a><a href="operations-scalability.html">Scalability and capacity</a><a href="operations-security.html">Security operations</a><a href="operations-testing.html">Verification and testing</a></details><details open><summary>Quantum computing</summary><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states</a><a href="quantum-equivalence.html">Circuit equivalence</a><a href="quantum-foundations.html">Quantum computing foundations</a><a href="quantum-measurement.html">Measurement and bit ordering</a><a href="quantum-qaoa.html">QAOA and graph-cut experiments</a><a href="quantum-reproducibility.html">Reproducibility and evidence</a></details><details open><summary>Project reference</summary><a href="acceptance.html">Phase 1 acceptance coverage</a><a href="automated-reviews.html">Automated quality reviews</a><a href="product-spec.html">QORE — PHASE 1 MVP</a><a href="production.html">Production operations</a><a href="quantum.html" class="active" aria-current="page">QORE-IR and Supported Quantum Subset</a><a href="readme.html">QORE documentation</a><a href="security.html">Local execution guarantees and limitations</a></details></nav><div class="main-shell"><main class="article" id="main"><span class="breadcrumb">Project reference</span><h1>QORE-IR and Supported Quantum Subset</h1><p class="lead">QORE Phase 1 implements a strictly controlled subset of Qiskit Python programs. Arbitrary Python code is parsed via Python&#x27;s ast module and walked through a restricted visitor allo</p><div class="concept"><small>CONCEPT AT A GLANCE</small><div class="concept-track"><span class="concept-step" style="--i:0">Write</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:1">Save</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:2">Explore</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:3">Verify</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:4">Keep evidence</span></div><p>Conceptual workflow. Numerical evidence and save status come from your actual QORE session.</p></div><h2 id="1-supported-quantum-subset">1. Supported Quantum Subset</h2>
+<p>QORE Phase 1 implements a strictly controlled subset of Qiskit Python programs. Arbitrary Python code is parsed via Python's <code>ast</code> module and walked through a restricted visitor allowlist. No user code is ever passed to <code>eval</code>, <code>exec</code>, or dynamic module loaders.</p>
+<h3 id="1-1-supported-imports">1.1 Supported Imports</h3>
+<ul>
+<li><code>from qiskit import QuantumCircuit</code></li>
+<li><code>import qiskit</code></li>
+<li><code>import math</code> / <code>from math import pi, tau, e</code></li>
+<li><code>import numpy</code> / <code>from numpy import pi, e</code></li>
+</ul>
+<h3 id="1-2-circuit-declarations">1.2 Circuit Declarations</h3>
+<p>Programs must declare exactly one <code>QuantumCircuit</code> instance:</p>
+<pre><code class="language-python">from qiskit import QuantumCircuit
+
+qc = QuantumCircuit(qubits, classical_bits)
+</code></pre>
+<ul>
+<li>Maximum qubits: 10 (<code>MAX_QUBITS = 10</code>)</li>
+<li>Maximum classical bits: 10 (<code>MAX_CLBITS = 10</code>)</li>
+<li>Maximum operations: 500 (<code>MAX_OPERATIONS = 500</code>)</li>
+<li>Maximum source size: 32 KB (<code>MAX_SOURCE_BYTES = 32768</code>)</li>
+</ul>
+<h3 id="1-3-supported-gates-and-operations">1.3 Supported Gates and Operations</h3>
+<p>Unitary gates supported in Phase 1:</p>
+<ul>
+<li><strong>1-qubit parameter-free:</strong> <code>id</code> (<code>i</code>), <code>x</code>, <code>y</code>, <code>z</code>, <code>h</code>, <code>s</code>, <code>sdg</code>, <code>t</code>, <code>tdg</code>, <code>sx</code>, <code>sxdg</code></li>
+<li><strong>1-qubit parameterized:</strong> <code>rx(theta, q)</code>, <code>ry(theta, q)</code>, <code>rz(theta, q)</code>, <code>p(theta, q)</code></li>
+<li><strong>1-qubit 3-parameter unitary:</strong> <code>u(theta, phi, lam, q)</code></li>
+<li><strong>2-qubit parameter-free:</strong> <code>cx</code> (<code>cnot</code>), <code>cy</code>, <code>cz</code>, <code>ch</code>, <code>swap</code>, <code>ecr</code></li>
+<li><strong>2-qubit parameterized:</strong> <code>cp(theta, c, t)</code>, <code>crx</code>, <code>cry</code>, <code>crz</code>, <code>rxx</code>, <code>ryy</code>, <code>rzz</code>, <code>rzx</code></li>
+<li><strong>3-qubit gates:</strong> <code>ccx</code> (<code>toffoli</code>), <code>cswap</code></li>
+<li><strong>Barriers:</strong> <code>qc.barrier()</code> or <code>qc.barrier(0, 1)</code></li>
+<li><strong>Measurements:</strong> <code>qc.measure(qubit, clbit)</code> (strictly terminal; mid-circuit measurements and conditional reset are rejected)</li>
+<li><strong>Global phase assignment:</strong> <code>qc.global_phase = float_val</code></li>
+</ul>
+<hr />
+<h2 id="2-qore-ir-specification-version-1-0">2. QORE-IR Specification (Version 1.0)</h2>
+<p>QORE-IR connects Studio (editor), Circuit Viewer (SVG visualizer), Lab (Aer simulator), Forge (transpiler/optimizer), and Research (provenance ledger) into an unambiguous shared intermediate representation.</p>
+<h3 id="2-1-schema-definition">2.1 Schema Definition</h3>
+<pre><code class="language-json">{
+  &quot;version&quot;: &quot;1.0&quot;,
+  &quot;num_qubits&quot;: 2,
+  &quot;num_clbits&quot;: 2,
+  &quot;global_phase&quot;: 0.0,
+  &quot;operations&quot;: [
+    {
+      &quot;name&quot;: &quot;h&quot;,
+      &quot;qubits&quot;: [0],
+      &quot;clbits&quot;: [],
+      &quot;params&quot;: []
+    },
+    {
+      &quot;name&quot;: &quot;cx&quot;,
+      &quot;qubits&quot;: [0, 1],
+      &quot;clbits&quot;: [],
+      &quot;params&quot;: []
+    },
+    {
+      &quot;name&quot;: &quot;measure&quot;,
+      &quot;qubits&quot;: [0],
+      &quot;clbits&quot;: [0],
+      &quot;params&quot;: []
+    },
+    {
+      &quot;name&quot;: &quot;measure&quot;,
+      &quot;qubits&quot;: [1],
+      &quot;clbits&quot;: [1],
+      &quot;params&quot;: []
+    }
+  ]
+}
+</code></pre>
+<h3 id="2-2-metrics-schema">2.2 Metrics Schema</h3>
+<p>Circuit resource metrics are computed directly from the canonical circuit representation:</p>
+<ul>
+<li><strong>gate_count</strong>: Total unitary operations (measurements and barriers are strictly excluded).</li>
+<li><strong>depth</strong>: Circuit depth computed via Qiskit's DAG (includes measurements, excludes barriers).</li>
+<li><strong>two_qubit_gate_count</strong>: Unitary operations acting on exactly two qubits.</li>
+<li><strong>qubits / clbits</strong>: Register counts.</li>
+<li><strong>measurement_count / barrier_count</strong>: Tracked separately for full accountability.</li>
+<li><strong>gate_types</strong>: Breakdown dictionary of unitary gates by type (e.g. <code>{&quot;h&quot;: 1, &quot;cx&quot;: 1}</code>).</li>
+</ul>
+<hr />
+<h2 id="3-equivalence-and-verification-model">3. Equivalence and Verification Model</h2>
+<p>QORE Forge optimizes circuits using standard Qiskit transpilation passes (<code>optimization_level = 0..3</code>). Verification evaluates semantic equivalence:</p>
+<ol>
+<li>
+<p><strong>Operator Equivalence (Unitary Portion):</strong>
+For circuits with $\le 6$ qubits without mid-circuit measurements, QORE computes the full unitary operators $U_{\text{orig}}$ and $U_{\text{cand}}$ using <code>qiskit.quantum_info.Operator</code>.
+The Hilbert-Schmidt inner product normalized process fidelity is computed:
+$$F_{\text{process}} = \frac{|\operatorname{Tr}(U_{\text{orig}}^\dagger U_{\text{cand}})|^2}{d^2}$$
+where $d = 2^n$. The candidate is verified if $1 - F \le 10^{-9}$ and the global phase difference $\Delta\theta$ is bounded.</p>
+</li>
+<li>
+<p><strong>Measurement Destination Invariance:</strong>
+Every terminal measurement mapping $(q_i \to c_j)$ in the original circuit must match the candidate circuit identically. Reordered or missing measurement assignments cause validation to fail.</p>
+</li>
+</ol>
+<div class="next-pages"><a href="quantum-reproducibility.html">← Reproducibility and evidence</a><a href="readme.html">QORE documentation →</a></div><p class="footer-note">QORE reference · Bounded simulation, inspectable evidence, account-free browser workspace.</p></main><aside class="toc" aria-label="On this page"><h2>ON THIS PAGE</h2><a href="#1-supported-quantum-subset">1. Supported Quantum Subset</a><a href="#1-1-supported-imports">1.1 Supported Imports</a><a href="#1-2-circuit-declarations">1.2 Circuit Declarations</a><a href="#1-3-supported-gates-and-operations">1.3 Supported Gates and Operations</a><a href="#2-qore-ir-specification-version-1-0">2. QORE-IR Specification (Version 1.0)</a><a href="#2-1-schema-definition">2.1 Schema Definition</a><a href="#2-2-metrics-schema">2.2 Metrics Schema</a><a href="#3-equivalence-and-verification-model">3. Equivalence and Verification Model</a></aside></div></div></body></html>

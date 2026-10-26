@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101821"><title>Phase 1 acceptance coverage · QORE Documentation</title><meta name="description" content="The automated tests execute the installed Qiskit/Aer engine, FastAPI application, and a temporary SQLite database. Compiler, simulation, and persistence results are not mocked. Thi"><link rel="canonical" href="https://qoredocs.vercel.app/acceptance.html"><link rel="icon" href="assets/qore.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head><body><a class="skip" href="#main">Skip to content</a><header><button class="icon-button" type="button" data-nav-toggle aria-label="Toggle documentation navigation" aria-controls="docs-sidebar" aria-expanded="true">☰</button><a class="brand" href="index.html"><img src="assets/qore.svg" alt="" width="29" height="29">QORE <small>DOCS</small></a><div class="search"><label for="docs-search" hidden>Search documentation</label><input id="docs-search" type="search" placeholder="Search the docs · Ctrl K" autocomplete="off"><div class="search-results" role="status"></div></div><a class="header-link" href="https://qore-bmh1.onrender.com/" rel="noopener">Open Studio ↗</a></header><button class="docs-menu-backdrop" type="button" aria-label="Close documentation navigation"></button><div class="shell"><nav class="sidebar" id="docs-sidebar" aria-label="Documentation topics"><p class="sidebar-title">QORE DOCUMENTATION</p><a href="index.html">Overview</a><details open><summary>Start here</summary><a href="guides-anonymous-workspace.html">Account-free workspace and browser boundaries</a><a href="guides-first-experiment.html">Your first three-qubit experiment</a><a href="guides-getting-started.html">Getting started with QORE</a><a href="guides-learning-path.html">A learning path through quantum experiments</a><a href="guides-local-development.html">Local development</a><a href="guides-troubleshooting.html">Troubleshooting QORE</a><a href="guides-workspace-files.html">Files, folders, saving, and recovery</a></details><details open><summary>Workspace features</summary><a href="features-assistant.html">QI Assistant: quantum intelligence across QORE</a><a href="features-forge.html">Forge: compiler candidates and verification</a><a href="features-quantum-lab.html">Quantum Lab: simulation and evidence</a><a href="features-research-ledger.html">Research Ledger: immutable experiment evidence</a><a href="features-state-world.html">State World and visual state inspection</a><a href="features-studio.html">Studio: editing and workspace organization</a><a href="features-terminal.html">Terminal, Output, Problems, and Debug</a></details><details open><summary>Technical reference</summary><a href="reference-api.html">HTTP API reference</a><a href="reference-architecture.html">Architecture and trust boundaries</a><a href="reference-circuit-python.html">Supported circuit language</a><a href="reference-limits.html">Runtime limits and compatibility</a><a href="reference-workspace-api.html">Workspace API and recovery model</a></details><details open><summary>Operate QORE</summary><a href="operations-backup-recovery.html">Backup and recovery</a><a href="operations-deployment.html">Deployment guide</a><a href="operations-scalability.html">Scalability and capacity</a><a href="operations-security.html">Security operations</a><a href="operations-testing.html">Verification and testing</a></details><details open><summary>Quantum computing</summary><a href="quantum-bloch-spheres.html">Bloch spheres and reduced states</a><a href="quantum-equivalence.html">Circuit equivalence</a><a href="quantum-foundations.html">Quantum computing foundations</a><a href="quantum-measurement.html">Measurement and bit ordering</a><a href="quantum-qaoa.html">QAOA and graph-cut experiments</a><a href="quantum-reproducibility.html">Reproducibility and evidence</a></details><details open><summary>Project reference</summary><a href="acceptance.html" class="active" aria-current="page">Phase 1 acceptance coverage</a><a href="automated-reviews.html">Automated quality reviews</a><a href="product-spec.html">QORE — PHASE 1 MVP</a><a href="production.html">Production operations</a><a href="quantum.html">QORE-IR and Supported Quantum Subset</a><a href="readme.html">QORE documentation</a><a href="security.html">Local execution guarantees and limitations</a></details></nav><div class="main-shell"><main class="article" id="main"><span class="breadcrumb">Project reference</span><h1>Phase 1 acceptance coverage</h1><p class="lead">The automated tests execute the installed Qiskit/Aer engine, FastAPI application, and a temporary SQLite database. Compiler, simulation, and persistence results are not mocked. Thi</p><div class="concept"><small>CONCEPT AT A GLANCE</small><div class="concept-track"><span class="concept-step" style="--i:0">Write</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:1">Save</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:2">Explore</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:3">Verify</span><span class="concept-arrow" aria-hidden="true">→</span><span class="concept-step" style="--i:4">Keep evidence</span></div><p>Conceptual workflow. Numerical evidence and save status come from your actual QORE session.</p></div><p>The automated tests execute the installed Qiskit/Aer engine, FastAPI application, and a temporary SQLite database. Compiler, simulation, and persistence results are not mocked. This document is a coverage guide; the final engineering report records the commands and outcomes that were actually executed.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Automated evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>QORE-IR version, gate order, control/target and classical mapping</td>
+<td><code>backend/tests/test_quantum.py</code></td>
+</tr>
+<tr>
+<td>Metric definitions, counts and actual compiler differences</td>
+<td><code>backend/tests/test_quantum.py</code></td>
+</tr>
+<tr>
+<td>Bell-state samples, seeded repeatability, exact shot totals, theoretical probabilities and calculated TVD</td>
+<td><code>backend/tests/test_quantum.py</code></td>
+</tr>
+<tr>
+<td>Little-endian output labels and swapped classical mapping</td>
+<td><code>backend/tests/test_quantum.py</code></td>
+</tr>
+<tr>
+<td>Original circuit preserved; real simplification; honest zero improvement</td>
+<td><code>backend/tests/test_quantum.py</code></td>
+</tr>
+<tr>
+<td>Full-operator comparison, global phase, incorrect transformation, mapping mismatch and size limit</td>
+<td><code>backend/tests/test_quantum.py</code></td>
+</tr>
+<tr>
+<td>Arbitrary imports/calls, attribute traversal, file access, comprehensions, unsupported constructs and malformed source rejected</td>
+<td><code>backend/tests/test_security.py</code></td>
+</tr>
+<tr>
+<td>Source, register, instruction and shot caps</td>
+<td><code>backend/tests/test_security.py</code> and <code>backend/tests/test_api.py</code></td>
+</tr>
+<tr>
+<td>Project create, rename, save, open and list</td>
+<td><code>backend/tests/test_api.py</code></td>
+</tr>
+<tr>
+<td>Bell parse → simulate → optimize → validate → save → reopen</td>
+<td><code>backend/tests/test_api.py</code></td>
+</tr>
+<tr>
+<td>Immutable historical snapshots after project edits and application restart</td>
+<td><code>backend/tests/test_api.py</code></td>
+</tr>
+<tr>
+<td>Source hash mismatch, unknown references and incorrect run kinds rejected</td>
+<td><code>backend/tests/test_api.py</code></td>
+</tr>
+<tr>
+<td>Structured HTTP errors, recovery after a failed run and optional AI unavailable</td>
+<td><code>backend/tests/test_api.py</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="browser-acceptance-procedure">Browser acceptance procedure</h2>
+<p>Run the backend and frontend using the repository setup instructions. In the running application:</p>
+<ol>
+<li>Open the Bell-state example and inspect editable, highlighted source.</li>
+<li>Parse and verify that the SVG shows H on q0, CX from q0 to q1, and the measurement/classical connections from the returned IR.</li>
+<li>Run the simulator with 1,024 shots and seed 42. Confirm counts total 1,024, only 00/11 occur, and theoretical values are visibly distinguished from sampled probabilities.</li>
+<li>Optimize and inspect separate original/candidate diagrams, actual metrics, settings and validation evidence. Confirm that the editor still contains the original source.</li>
+<li>Save an experiment, edit the source, and reopen the saved experiment. Confirm the historical label, original source, run configuration, counts and compiler evidence are restored.</li>
+<li>Edit the source again and confirm live results are cleared. Run again and confirm new execution replaces the historical context.</li>
+<li>Make an unsaved edit and switch projects. Confirm the discard decision is explicit.</li>
+<li>Use the redundant-gates example to verify an actual simplification. Approve the candidate explicitly and confirm that the optimization snapshot retains the original.</li>
+<li>Trigger invalid syntax and confirm the error is visible, then correct it and run successfully.</li>
+<li>Open Intelligence without configured credentials and confirm the unavailable state leaves the core workflow usable.</li>
+<li>Check a narrow viewport and keyboard navigation. Record screenshots of the working application.</li>
+</ol>
+<p>Passing API tests alone does not establish that these browser steps have passed. Browser outcomes and any unverified steps must be reported separately.</p>
+<div class="next-pages"><span></span><a href="automated-reviews.html">Automated quality reviews →</a></div><p class="footer-note">QORE reference · Bounded simulation, inspectable evidence, account-free browser workspace.</p></main><aside class="toc" aria-label="On this page"><h2>ON THIS PAGE</h2><a href="#browser-acceptance-procedure">Browser acceptance procedure</a></aside></div></div></body></html>
